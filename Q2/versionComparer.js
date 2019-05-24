@@ -41,10 +41,13 @@ const compareValues = (num1, num2) => {
   }
 
   // Defaulting these to num1/num2 as they can
-  // return undefined for some cases
+  // return undefined in some cases
   numberPart1 = Number(num1.substring(0, num1.indexOf("."))) || num1;
   numberPart2 = Number(num2.substring(0, num2.indexOf("."))) || num2;
 
+  // Check for the number value first. If they are equal,
+  // then check for the decimal part and repeat the same logic
+  // until we get a result
   if (numberPart1 > numberPart2) {
     return IS_GREAT;
   } else if (numberPart1 < numberPart2) {
@@ -52,6 +55,7 @@ const compareValues = (num1, num2) => {
   } else {
     decimalPart1 = getDecimalPart(num1);
     decimalPart2 = getDecimalPart(num2);
+    // Using recursion here
     return compareValues(decimalPart1, decimalPart2);
   }
 };
